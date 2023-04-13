@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Rastreador de imagen AR</title>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- iOS tiene muchas restricciones para reproducir videos en el navegador. 
+  Para reproducir una textura de video inline, debemos establecer la etiqueta meta.
+  A-Frame injectará esto si hace falta.-->
+  <meta name="apple-mobile-web-app-capable" conten="yes"/>
+  <!-- Importamos aframe y después ar.js con las funciones de rastreador de imagen / ubicación -->
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <script src="./play-on-click.js"></script>
+
+  
+  <!-- Cambiamos el estilo para el cargador -->
+  <style> .arjs-loader { height: 100%; width: 100%; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.8); z-index: 9999; display: flex; justify-content: center; align-items: center; } .arjs-loader div { text-align: center; font-size: 1.25em; color: white; } </style>
+</head>
+<body style="margin : 0px; overflow: hidden;">
+
+  <!-- El cargador se mostrará hasta que se carguen los descriptores de imagen.
+    Esto puede tomar un poco más de tiempo según el poder computacional del dispositivo -->
+    <div class="arjs-loader"><div>charging...</div></div>
+  
+
+  <!-- Escena a-frame -->
+  <a-scene vr-mode-ui="enabled:false" renderer="logarithmictDepthBuffer:true" embeded arjs="trackingMethod:best; sourceType:webcam; debugUIeEabled:false">
+   <a-entity id="camera" camera position="0 0 10"></a-entity>
+   <a-assets>
+    <video id="v" preload="auto" loop="true" playsinline webkit-playsinline autoplay crossorigin="anonymous" src="assets/videos/Rocket_Launching_Animation.mp4"></video>
+   </a-assets>
+   <a-nft id="r1" type="nft" url="./assets/images/rocket_img" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
+    <a-video id="v1" src="#v" width="600" height="509" position="0 0 -30" rotation="-90 0 0" play-on-click></a-video>
+   </a-nft>
+  </a-scene>
+
+</body>
+
+</html>
